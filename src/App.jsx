@@ -5,31 +5,45 @@ import MyNav from "./components/MyNav";
 import Footer from "./components/Footer";
 import Welcome from "./components/Welcome";
 import Container from "react-bootstrap/esm/Container";
-import AllTheBooks from "./components/AllTheBooks";
 
 import scifi from "./data/scifi.json";
-import fantasy from "./data/fantasy.json";
-import history from "./data/history.json";
-import horror from "./data/horror.json";
-import romance from "./data/romance.json";
-
 
 import BookList from "./components/BookList";
+import { Col, Row } from "react-bootstrap";
+import CommentAreaNew from "./components/CommentAreaNew";
+import { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <MyNav brand={"EpiBooks"} link1={"Home"} link2={"Browse"} link3={"About"} />
-      <Container>
-        <Welcome />
-        <BookList genre={scifi}/>
-        
-         
-      </Container>
+class App extends Component {
+  state = {
+    selected: null
+  }
 
-      <Footer />
-    </div>
-  );
+  setCommentState = selectedItem => {
+    // selectedItem sarà "First", "Third" ecc....
+    this.setState({ selected: selectedItem });
+  };
+  render() {
+    return (
+      <div className="App">
+        <MyNav brand={"EpiBooks"} link1={"Home"} link2={"Browse"} link3={"About"} />
+        <Container>
+          <Welcome />
+          <Container>
+            <Row>
+              <Col xs={6}>
+                <BookList genre={scifi} selected={this.state.selected} setCommentState={this.setCommentState} />
+              </Col>
+              <Col xs={6} className="bg-light rounded-5">
+                <CommentAreaNew selected={this.state.selected}/>
+              </Col>
+            </Row>
+          </Container>
+        </Container>
+
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;

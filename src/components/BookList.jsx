@@ -33,9 +33,14 @@ import { Component } from "react";
 class BookList extends Component {
   state = {
     searchTerm: "",
+    selected: null
   };
   handleChange = (event) => {
     this.setState({ searchTerm: event.target.value });
+  };
+  setCommentState = selectedItem => {
+    // selectedItem sarà "First", "Third" ecc....
+    this.setState({ selected: selectedItem });
   };
 
   render() {
@@ -44,7 +49,7 @@ class BookList extends Component {
         <FormControl
           type="search"
           placeholder="Search"
-          className=" m-5 w-auto"
+          className="mb-2 w-auto"
           aria-label="Search"
           value={this.state.searchTerm}
           onChange={this.handleChange}
@@ -52,7 +57,7 @@ class BookList extends Component {
 
         <Row className="g-5">
           {this.props.genre.filter(book => book.title.toLowerCase().includes(this.state.searchTerm.toLowerCase())).map((book, index) => (
-            <SingleBook key={`book${index}`} book={book} />
+            <SingleBook key={`book${index}`} book={book} selected={this.state.selected} setCommentState={this.setCommentState} />
           ))}
         </Row>
       </>

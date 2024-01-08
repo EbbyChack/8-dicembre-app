@@ -41,7 +41,7 @@ class SingleBook extends Component {
 
   render() {
     return (
-      <Col xs="6" md="4" lg="3">
+      <Col xs="12" md="12" lg="6">
         <Card className={`h-100 ${this.state.selected ? "border-danger border-2" : ""}`} onClick={this.handleCardClick}>
           <Card.Img variant="top" src={this.props.book.img} style={{ objectFit: "cover" }} />
           <Card.Body className="d-flex flex-column justify-content-between">
@@ -49,7 +49,6 @@ class SingleBook extends Component {
             <Card.Text className="bg-dark text-light rounded-5">
               <b> {this.props.book.price}$</b>
             </Card.Text>
-            {this.state.selected && <CommentArea selected={this.state.selected} elementId={this.props.book.asin} />}
 
           </Card.Body>
         </Card>
